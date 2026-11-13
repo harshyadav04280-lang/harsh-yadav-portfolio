@@ -10,6 +10,34 @@ const videoProjects = [
   {n:"04",name:"Social First",client:"PHONEPE / ZOMATO / SOCIAL",kind:"SHORT-FORM · EDITING",tone:"lime",desc:"Platform-native edits designed to stop the scroll while keeping the brand voice intact."},
   {n:"05",name:"Culture & Sport",client:"MUMBAI INDIANS / ENTERTAINMENT",kind:"PROMO · HIGHLIGHTS · EDIT",tone:"red",desc:"Fast-moving entertainment and sports-led visuals shaped for energy, emotion and impact."}
 ];
+const portfolioVideos = [
+  { file: "AXIS_Max_Life_Policy_2.mp4", title: "Max Life Policy", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "BFL_Delhi_Monsoon_Horizontal (3).mp4", title: "Delhi Monsoon", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "BFL_Mumbai_4.mp4", title: "BFL Mumbai", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "BFL_kerala_D38 (1).mp4", title: "BFL Kerala", category: "AI Commercial Ads", priority: "Secondary" },
+  { file: "BGI_Cyber_9x16_v1.mp4", title: "BGI Cyber", category: "AI Reels & Social", priority: "Secondary" },
+  { file: "Color_Reveal_16x9_V2.mp4", title: "Color Reveal", category: "AI Motion Graphics", priority: "Secondary" },
+  { file: "Duty_Free_Sample.mp4", title: "Duty Free", category: "AI Commercial Ads", priority: "Secondary" },
+  { file: "Goldiee_Sprinkoo_TVC_1 (3) (2).mp4", title: "Goldiee Sprinkoo TVC", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "Havells_Sample.mp4", title: "Havells", category: "AI Commercial Ads", priority: "Secondary" },
+  { file: "JioHotstar_BiggBoss_Sample.mp4", title: "JioHotstar Bigg Boss", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "Kenstar_Sample.mp4", title: "Kenstar", category: "AI Commercial Ads", priority: "Secondary" },
+  { file: "Kolkata_Monsoon_BFL_D8.mp4", title: "Kolkata Monsoon", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "MI_Hardik_Pandiya_Creative_Sample.mp4", title: "MI · Hardik Pandya", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "Pine_Labs_Sample_3.mp4", title: "Pine Labs", category: "AI Commercial Ads", priority: "Secondary" },
+  { file: "Revised_MF26_Agricultural_3Stocks_02_09.mp4", title: "Agricultural Stocks", category: "AI Motion Graphics", priority: "Secondary" },
+  { file: "Revised_MF27_HDFCDefence_Sold_03_09.mp4", title: "HDFC Defence", category: "AI Motion Graphics", priority: "Secondary" },
+  { file: "Revised_MF29_UTILargeCap_CapitalGoods_02_08.mp4", title: "Large Cap · Capital Goods", category: "AI Motion Graphics", priority: "Secondary" },
+  { file: "SBI_Retire_Smart_Plus_30-01-26.mp4", title: "SBI Retire Smart Plus", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "SLIC_LifeStageShield_English_6.mp4", title: "LifeStage Shield", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "Savvyy_render.mp4", title: "Savvyy", category: "AI Video Editing & VFX", priority: "Secondary" },
+  { file: "Sprinkoo_TVC_2_24fps-001 (1).mov", title: "Sprinkoo TVC · Film", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "VIVO_Appearance_16x9_4k.mp4", title: "Vivo Appearance", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "Vivo_S2_10Secs_1.mp4", title: "Vivo S2 · 10 sec", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "krishna sample1.4.mp4", title: "Krishna", category: "AI Video Editing & VFX", priority: "Secondary" },
+  { file: "retail.mp4", title: "Retail", category: "AI Commercial Ads", priority: "Secondary" },
+];
+const aiCategories = ["All AI Videos", "AI Commercial Ads", "AI Motion Graphics", "AI Reels & Social", "AI Video Editing & VFX"] as const;
 const designProjects = [
   {n:"01",name:"Campaign Systems",client:"BRAND VISUALS",kind:"ART DIRECTION · GRAPHIC DESIGN",tone:"orange",desc:"A visual language that carries a campaign across formats and touchpoints."},
   {n:"02",name:"Type Experiments",client:"MOTION / TYPOGRAPHY",kind:"LAYOUT · TYPE · COMPOSITION",tone:"purple",desc:"Explorations in type, hierarchy, contrast and visual rhythm."},
@@ -38,6 +66,7 @@ function Visual({tone, index}:{tone:string,index:number}) {
 
 export default function Home(){
   const [category,setCategory]=useState<"video"|"design">("video");
+  const [aiFilter,setAiFilter]=useState<(typeof aiCategories)[number]>("All AI Videos");
   const [active,setActive]=useState<any>(null);
   const [rotation,setRotation]=useState(0);
   const [dragStart,setDragStart]=useState<number|null>(null);
@@ -62,7 +91,7 @@ export default function Home(){
       <a className="signature" href="#home"><span className="sig-icon">HY.</span><span>HARSH YADAV<small>INDEPENDENT CREATIVE</small></span></a>
       <div className="top-status"><i/> OPEN TO THE RIGHT PROJECTS <span>·</span> INDIA {time}</div>
       <button className="menu-btn" onClick={()=>setMenu(!menu)}>{menu?<X/>:<Menu/>}</button>
-      <nav className={menu?"nav-open":""}><a href="#work" onClick={()=>setMenu(false)}>WORK <sup>01</sup></a><a href="#archive" onClick={()=>setMenu(false)}>ARCHIVE <sup>02</sup></a><a href="#about" onClick={()=>setMenu(false)}>ABOUT <sup>03</sup></a><a href="#contact" onClick={()=>setMenu(false)}>CONTACT <sup>04</sup></a></nav>
+      <nav className={menu?"nav-open":""}><a href="#ai-videos" onClick={()=>setMenu(false)}>AI VIDEOS <sup>25</sup></a><a href="#work" onClick={()=>setMenu(false)}>WORK <sup>01</sup></a><a href="#archive" onClick={()=>setMenu(false)}>ARCHIVE <sup>02</sup></a><a href="#about" onClick={()=>setMenu(false)}>ABOUT <sup>03</sup></a><a href="#contact" onClick={()=>setMenu(false)}>CONTACT <sup>04</sup></a></nav>
     </header>
 
     <section className="hero" id="home">
@@ -105,6 +134,13 @@ export default function Home(){
       </div>
       <div className="featured-caption"><div><span className="eyebrow">CURRENTLY IN FOCUS</span><h3>{items[activeIndex]?.name}</h3><p>{items[activeIndex]?.client}</p></div><button className="text-link" onClick={()=>setActive(items[activeIndex])}>EXPLORE PROJECT <MoveUpRight size={16}/></button></div>
       <p className="disclaimer">PROJECT PANELS ARE VISUAL PLACEHOLDERS. REAL CAMPAIGN STILLS, VIDEO LINKS AND CREDITS WILL REPLACE THESE BEFORE PUBLIC LAUNCH.</p>
+    </section>
+
+    <section className="ai-gallery section" id="ai-videos">
+      <div className="section-intro"><div><span className="eyebrow">01A / THE AI VIDEO LIBRARY</span><h2>AI <span>FILMS.</span></h2></div><p>25 AI-created projects.<br/>Browse by format and craft.</p></div>
+      <div className="ai-filter-row">{aiCategories.map(c=><button key={c} className={aiFilter===c?"active":""} onClick={()=>setAiFilter(c)}>{c}</button>)}</div>
+      <div className="ai-video-grid">{portfolioVideos.filter(v=>aiFilter==="All AI Videos"||v.category===aiFilter).map((v,i)=><article className="ai-video-card" key={v.file}><video controls preload="none" playsInline src={`/videos/${encodeURIComponent(v.file)}`} aria-label={v.title}/><div className="ai-video-meta"><span>{v.category}</span><span className={v.priority==="Featured"?"priority-featured":""}>{v.priority}</span></div><h3>{v.title}</h3><p>{v.file}</p></article>)}</div>
+      <p className="disclaimer">Video previews load from <code>public/videos</code>. Add the original files there to make this gallery playable and deployable.</p>
     </section>
 
     <section className="archive section" id="archive">
