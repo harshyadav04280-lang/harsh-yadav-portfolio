@@ -76,6 +76,7 @@ export default function Home(){
   const [desk,setDesk]=useState("Select an object on the desk");
   const carouselRef=useRef<HTMLDivElement>(null);
   const items=category==="video"?videoProjects:designProjects;
+  const featuredVideo=portfolioVideos.find(v=>v.priority==="Featured"&&v.youtubeId);
 
   useEffect(()=>{const tick=()=>setTime(new Intl.DateTimeFormat("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date()));tick();const t=setInterval(tick,30000);return()=>clearInterval(t)},[]);
   useEffect(()=>{setRotation(0)},[category]);
@@ -139,6 +140,7 @@ export default function Home(){
 
     <section className="ai-gallery section" id="ai-videos">
       <div className="section-intro"><div><span className="eyebrow">01A / THE AI VIDEO LIBRARY</span><h2>AI <span>FILMS.</span></h2></div><p>25 AI-created projects.<br/>Browse by format and craft.</p></div>
+      {featuredVideo&&<div className="featured-video"><button className="featured-video-thumb" onClick={()=>setActive(featuredVideo)} aria-label={`Play featured video ${featuredVideo.title}`}><img src={`https://i.ytimg.com/vi/${featuredVideo.youtubeId}/maxresdefault.jpg`} alt={`${featuredVideo.title} thumbnail`} onError={e=>{if(!e.currentTarget.src.includes("hqdefault.jpg"))e.currentTarget.src=`https://i.ytimg.com/vi/${featuredVideo.youtubeId}/hqdefault.jpg`}}/><span className="thumb-play"><Play fill="currentColor"/></span></button><div className="featured-video-copy"><span className="eyebrow">FEATURED VIDEO / {featuredVideo.category.toUpperCase()}</span><h3>{featuredVideo.title}</h3><p>A featured AI campaign film from the selected portfolio work.</p><button className="text-link" onClick={()=>setActive(featuredVideo)}>PLAY FEATURED VIDEO <MoveUpRight size={16}/></button></div></div>}
       <div className="ai-filter-row">{aiCategories.map(c=><button key={c} className={aiFilter===c?"active":""} onClick={()=>setAiFilter(c)}>{c}</button>)}</div>
       <div className="ai-video-grid">{portfolioVideos.filter(v=>aiFilter==="All AI Videos"||v.category===aiFilter).map(v=><article className="ai-video-card" key={v.file}>{v.youtubeId ? <button className="video-thumb" onClick={()=>setActive(v)} aria-label={`Play ${v.title}`}><img src={`https://i.ytimg.com/vi/${v.youtubeId}/maxresdefault.jpg`} alt={`${v.title} video thumbnail`} onError={e=>{if(!e.currentTarget.src.includes("hqdefault.jpg"))e.currentTarget.src=`https://i.ytimg.com/vi/${v.youtubeId}/hqdefault.jpg`}}/><span className="thumb-play"><Play fill="currentColor"/></span></button> : <div className="video-pending"><span>VIDEO PREVIEW</span><b>{v.title}</b><small>Online video link pending</small></div>}<div className="ai-video-meta"><span>{v.category}</span><span className={v.priority==="Featured"?"priority-featured":""}>{v.priority}</span></div><h3>{v.title}</h3></article>)}</div>
       <p className="disclaimer">The gallery is ready. Video previews will appear here after their Unlisted YouTube links are connected.</p>
