@@ -10,7 +10,7 @@ const videoProjects = [
   {n:"04",name:"Social First",client:"PHONEPE / ZOMATO / SOCIAL",kind:"SHORT-FORM · EDITING",tone:"lime",desc:"Platform-native edits designed to stop the scroll while keeping the brand voice intact."},
   {n:"05",name:"Culture & Sport",client:"MUMBAI INDIANS / ENTERTAINMENT",kind:"PROMO · HIGHLIGHTS · EDIT",tone:"red",desc:"Fast-moving entertainment and sports-led visuals shaped for energy, emotion and impact."}
 ];
-const portfolioVideos = [
+const portfolioVideos: { file: string; title: string; category: string; priority: string; youtubeId?: string }[] = [
   { file: "AXIS_Max_Life_Policy_2.mp4", title: "Max Life Policy", category: "AI Commercial Ads", priority: "Featured" },
   { file: "BFL_Delhi_Monsoon_Horizontal (3).mp4", title: "Delhi Monsoon", category: "AI Commercial Ads", priority: "Featured" },
   { file: "BFL_Mumbai_4.mp4", title: "BFL Mumbai", category: "AI Commercial Ads", priority: "Featured" },
@@ -65,7 +65,7 @@ function Visual({tone, index}:{tone:string,index:number}) {
 }
 
 export default function Home(){
-  const [category,setCategory]=useState<"video"|"design">("video");
+  const [category,setCategory]=useState<"video"|"design">("design");
   const [aiFilter,setAiFilter]=useState<(typeof aiCategories)[number]>("All AI Videos");
   const [active,setActive]=useState<any>(null);
   const [rotation,setRotation]=useState(0);
@@ -115,7 +115,7 @@ export default function Home(){
 
     <section className="work section" id="work">
       <div className="section-intro"><div><span className="eyebrow">01 / SELECTED WORK</span><h2>THE SHOW<span>CASE.</span></h2></div><p>Different mediums. One obsession:<br/>making the frame matter.</p></div>
-      <div className="work-controls"><div className="tabs"><button className={category==="video"?"selected":""} onClick={()=>setCategory("video")}>▶ VIDEOS <sup>05</sup></button><button className={category==="design"?"selected":""} onClick={()=>setCategory("design")}>✳ DESIGNS <sup>03</sup></button></div><div className="drag-hint">DRAG / SWIPE TO EXPLORE <span>↔</span></div></div>
+      <div className="work-controls"><div className="tabs"><a className="tab-link" href="#ai-videos">▶ AI VIDEOS <sup>25</sup></a><button className={category==="design"?"selected":""} onClick={()=>setCategory("design")}>✳ DESIGNS <sup>03</sup></button></div><div className="drag-hint">DRAG / SWIPE TO EXPLORE <span>↔</span></div></div>
       <div className="carousel-shell" onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerLeave={onPointerUp}>
         <div className="carousel-stage" ref={carouselRef}>
           {items.map((p,i)=>{
@@ -139,8 +139,8 @@ export default function Home(){
     <section className="ai-gallery section" id="ai-videos">
       <div className="section-intro"><div><span className="eyebrow">01A / THE AI VIDEO LIBRARY</span><h2>AI <span>FILMS.</span></h2></div><p>25 AI-created projects.<br/>Browse by format and craft.</p></div>
       <div className="ai-filter-row">{aiCategories.map(c=><button key={c} className={aiFilter===c?"active":""} onClick={()=>setAiFilter(c)}>{c}</button>)}</div>
-      <div className="ai-video-grid">{portfolioVideos.filter(v=>aiFilter==="All AI Videos"||v.category===aiFilter).map((v,i)=><article className="ai-video-card" key={v.file}><video controls preload="none" playsInline src={`/videos/${encodeURIComponent(v.file)}`} aria-label={v.title}/><div className="ai-video-meta"><span>{v.category}</span><span className={v.priority==="Featured"?"priority-featured":""}>{v.priority}</span></div><h3>{v.title}</h3><p>{v.file}</p></article>)}</div>
-      <p className="disclaimer">Video previews load from <code>public/videos</code>. Add the original files there to make this gallery playable and deployable.</p>
+      <div className="ai-video-grid">{portfolioVideos.filter(v=>aiFilter==="All AI Videos"||v.category===aiFilter).map((v,i)=><article className="ai-video-card" key={v.file}>{v.youtubeId ? <iframe src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}`} title={v.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/> : <div className="video-pending"><span>VIDEO PREVIEW</span><b>{v.title}</b><small>Online video link pending</small></div>}<div className="ai-video-meta"><span>{v.category}</span><span className={v.priority==="Featured"?"priority-featured":""}>{v.priority}</span></div><h3>{v.title}</h3><p>{v.file}</p></article>)}</div>
+      <p className="disclaimer">The gallery is ready. Video previews will appear here after their Unlisted YouTube links are connected.</p>
     </section>
 
     <section className="archive section" id="archive">
