@@ -11,7 +11,7 @@ const videoProjects = [
   {n:"05",name:"Culture & Sport",client:"MUMBAI INDIANS / ENTERTAINMENT",kind:"PROMO · HIGHLIGHTS · EDIT",tone:"red",desc:"Fast-moving entertainment and sports-led visuals shaped for energy, emotion and impact."}
 ];
 const portfolioVideos: { file: string; title: string; category: string; priority: string; youtubeId?: string }[] = [
-  { file: "AXIS_Max_Life_Policy_2.mp4", title: "Max Life Policy", youtubeId: "1NUnUSmMH_Q", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "AXIS_Max_Life_Policy_2.mp4", title: "Max Life Policy", category: "AI Commercial Ads", priority: "Featured" },
   { file: "BFL_Delhi_Monsoon_Horizontal (3).mp4", title: "Delhi Monsoon", youtubeId: "Pm7zyz15HVU", category: "AI Commercial Ads", priority: "Featured" },
   { file: "BFL_Mumbai_4.mp4", title: "BFL Mumbai", youtubeId: "nQgvHOZ5Av8", category: "AI Commercial Ads", priority: "Featured" },
   { file: "BFL_kerala_D38 (1).mp4", title: "BFL Kerala", youtubeId: "VFVuX31-GQ0", category: "AI Commercial Ads", priority: "Secondary" },
