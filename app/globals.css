@@ -16,16 +16,7 @@
 @media(max-width:850px){.app-float{font-size:8px;padding:6px 9px 6px 6px;gap:6px}.app-float b{width:28px;height:28px}.app-premiere{left:1%}.app-aftereffects{right:0}.app-photoshop{right:0}.app-claude{left:3%}.app-higgsfield{left:-2%}.app-chatgpt{right:-2%}}
 @media(max-width:540px){.app-float{font-size:7px}.app-premiere{top:7%;left:0}.app-aftereffects{top:18%;right:-3%}.app-photoshop{bottom:16%;right:-3%}.app-claude{bottom:4%;left:3%}.app-higgsfield{top:48%;left:-4%}.app-chatgpt{top:46%;right:-4%}}
 
-/* Keep the AI video library in a continuous horizontal slider. */
-.ai-video-slider{width:100%;overflow:hidden;position:relative;touch-action:pan-x}
-.ai-video-slider-track{display:flex;width:max-content;animation:ai-video-marquee 90s linear infinite;will-change:transform}
-.ai-video-slider:hover .ai-video-slider-track,.ai-video-slider:focus-within .ai-video-slider-track{animation-play-state:paused}
-.ai-video-slider-group{display:flex;align-items:stretch;gap:18px;padding-right:18px}
-.ai-video-slider .ai-video-card{flex:0 0 clamp(320px,34vw,440px);width:clamp(320px,34vw,440px)}
-@keyframes ai-video-marquee{to{transform:translateX(-50%)}}
-@media(max-width:850px){.ai-video-slider-track{animation-duration:72s}.ai-video-slider .ai-video-card{flex-basis:clamp(280px,52vw,390px);width:clamp(280px,52vw,390px)}}
-@media(max-width:540px){.ai-video-slider-track{animation-duration:56s}.ai-video-slider-group{gap:12px;padding-right:12px}.ai-video-slider .ai-video-card{flex-basis:82vw;width:82vw}}
-@media(prefers-reduced-motion:reduce){.ai-video-slider{overflow-x:auto;scroll-snap-type:x mandatory}.ai-video-slider-track{animation:none}.ai-video-slider-group{scroll-snap-align:start}.ai-video-slider .ai-video-card{scroll-snap-align:start}}
+/* The video library remains a normal grid; only the Reels strip scrolls. */
 
 .featured-video{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:center;margin:30px 0 45px;padding:16px;border:1px solid #414735;background:linear-gradient(120deg,#1a1f13,#11130f)}.featured-video-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;padding:0;border:0;background:#090a08;cursor:pointer}.featured-video-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s,filter .3s}.featured-video-thumb:hover img{transform:scale(1.03);filter:brightness(.8)}.featured-video-copy{padding:20px}.featured-video-copy .eyebrow{color:var(--acid);font-size:8px}.featured-video-copy h3{font:600 clamp(28px,4vw,50px)/.95 var(--display);letter-spacing:-.06em;margin:22px 0 12px}.featured-video-copy p{font-size:12px;line-height:1.8;color:#a4a797;margin:0 0 25px}.featured-video-copy .text-link{display:inline-flex;align-items:center;gap:12px;border:0;background:none;color:#e6e8dc;padding:0}.featured-video-copy .text-link:hover{color:var(--acid)}@media(max-width:700px){.featured-video{grid-template-columns:1fr;gap:10px;padding:10px}.featured-video-copy{padding:15px 8px 18px}.featured-video-copy h3{margin:14px 0 9px}}
 
@@ -58,3 +49,12 @@
 .carousel-shell.reel-mode .reel-play svg{width:20px;height:20px}
 .carousel-shell.reel-mode .carousel-card-foot,.carousel-shell.reel-mode+.carousel-nav{display:none}
 @media(max-width:700px){.carousel-shell.reel-mode{margin:28px 0 12px}.carousel-shell.reel-mode .carousel-stage{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reel-poster-top,.reel-poster-bottom{left:12px;right:12px}.reel-poster-top{top:12px;font-size:7px}.reel-poster-bottom{bottom:14px}.reel-poster-bottom b{font-size:clamp(18px,5vw,26px)}.reel-poster-bottom small{font-size:7px}.carousel-shell.reel-mode .reel-play{width:44px;height:44px}}
+
+.carousel-shell.reel-mode{height:auto;min-height:0;margin:42px 0 18px;overflow-x:auto;overflow-y:hidden;perspective:none;cursor:grab;touch-action:pan-x;overscroll-behavior-x:contain;scrollbar-width:none;user-select:none}
+.carousel-shell.reel-mode::-webkit-scrollbar{display:none}
+.carousel-shell.reel-mode:active{cursor:grabbing}
+.carousel-shell.reel-mode .carousel-stage{height:auto;width:max-content;display:flex;justify-content:flex-start;align-items:stretch;gap:clamp(16px,2vw,26px);padding:0 5vw 12px;transform-style:flat}
+.carousel-shell.reel-mode .carousel-card{position:relative!important;inset:auto!important;flex:0 0 clamp(245px,27vw,330px);width:clamp(245px,27vw,330px);height:auto;aspect-ratio:9/16;transform:none!important;opacity:1!important;border:1px solid #3c4036;background:#10120f;box-shadow:0 22px 54px #0009;scroll-snap-align:start}
+.carousel-shell.reel-mode .carousel-card:hover{transform:translateY(-4px)!important;border-color:#d5ff5888}
+.carousel-shell.reel-mode .carousel-nav{display:none}
+@media(max-width:700px){.carousel-shell.reel-mode{margin:28px 0 12px}.carousel-shell.reel-mode .carousel-stage{display:flex;gap:12px;padding:0 6vw 12px}.carousel-shell.reel-mode .carousel-card{flex-basis:74vw;width:74vw;max-width:310px}}
