@@ -84,8 +84,8 @@ export default function Home(){
   useEffect(()=>{setRotation(0)},[category]);
 
   const move=(dir:number)=>setRotation(r=>r+dir*(360/items.length));
-  const onPointerDown=(e:React.PointerEvent<HTMLDivElement>)=>{if(category==="design"){reelDrag.current={x:e.clientX,scrollLeft:e.currentTarget.scrollLeft};reelMoved.current=false;e.currentTarget.setPointerCapture(e.pointerId);return}setDragStart(e.clientX)};
-  const onPointerMove=(e:React.PointerEvent<HTMLDivElement>)=>{if(category==="design"&&reelDrag.current){const delta=e.clientX-reelDrag.current.x;if(Math.abs(delta)>5)reelMoved.current=true;e.currentTarget.scrollLeft=reelDrag.current.scrollLeft-delta}};
+  const onPointerDown=(e:React.PointerEvent<HTMLDivElement>)=>{if(category==="design"){reelDrag.current={x:e.clientX,scrollLeft:e.currentTarget.scrollLeft};reelMoved.current=false;return}setDragStart(e.clientX)};
+  const onPointerMove=(e:React.PointerEvent<HTMLDivElement>)=>{if(category==="design"&&reelDrag.current){const delta=e.clientX-reelDrag.current.x;if(Math.abs(delta)>5){if(!reelMoved.current)e.currentTarget.setPointerCapture(e.pointerId);reelMoved.current=true}e.currentTarget.scrollLeft=reelDrag.current.scrollLeft-delta}};
   const onPointerUp=(e:React.PointerEvent<HTMLDivElement>)=>{if(category==="design"){reelDrag.current=null;return}if(dragStart!==null){const delta=e.clientX-dragStart;if(Math.abs(delta)>25)setRotation(r=>r+delta*.45);setDragStart(null)}};
   const activeIndex=((Math.round(-rotation/(360/items.length))%items.length)+items.length)%items.length;
 
