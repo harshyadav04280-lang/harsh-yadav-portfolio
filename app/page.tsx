@@ -39,9 +39,8 @@ const portfolioVideos: { file: string; title: string; category: string; priority
 ];
 const aiCategories = ["All AI Videos", "AI Commercial Ads", "AI Motion Graphics", "AI Reels & Social", "AI Video Editing & VFX"] as const;
 const designProjects = [
-  {n:"01",name:"Campaign Systems",client:"BRAND VISUALS",kind:"ART DIRECTION · GRAPHIC DESIGN",tone:"orange",desc:"A visual language that carries a campaign across formats and touchpoints."},
-  {n:"02",name:"Type Experiments",client:"MOTION / TYPOGRAPHY",kind:"LAYOUT · TYPE · COMPOSITION",tone:"purple",desc:"Explorations in type, hierarchy, contrast and visual rhythm."},
-  {n:"03",name:"Digital Creatives",client:"SOCIAL / DIGITAL",kind:"DESIGN · CONTENT SYSTEMS",tone:"blue",desc:"Scroll-stopping digital creative built to work at real-world platform sizes."}
+  {n:"01",name:"BGI Cyber",client:"BGI / VERTICAL SOCIAL FILM",kind:"AI REEL · 9:16",tone:"purple",youtubeId:"Agctuamx_hs",category:"Reels & Social",desc:"A vertical AI-led social film, edited for a full-screen mobile experience."},
+  {n:"02",name:"Duty Free",client:"DUTY FREE / SHORT-FORM FILM",kind:"AI REEL · 9:16",tone:"orange",youtubeId:"rnxirJRp5WQ",category:"Reels & Social",desc:"A short-form AI video, designed to play in a vertical social feed."}
 ];
 const tools = ["Premiere Pro","After Effects","Photoshop","AI Video Workflows","VFX & Compositing","Motion Design","Runway","Firefly","Higgsfield","Pika"];
 const brands = ["HDFC BANK","PHONEPE","ZOMATO","MUMBAI INDIANS","JioHotstar","BIGG BOSS","SAVVY"];
@@ -119,7 +118,7 @@ export default function Home(){
 
     <section className="work section" id="work">
       <div className="section-intro"><div><span className="eyebrow">01 / SELECTED WORK</span><h2>THE SHOW<span>CASE.</span></h2></div><p>Different mediums. One obsession:<br/>making the frame matter.</p></div>
-      <div className="work-controls"><div className="tabs"><a className="tab-link" href="#ai-videos">▶ AI VIDEOS <sup>25</sup></a><button className={category==="design"?"selected":""} onClick={()=>setCategory("design")}>✳ DESIGNS <sup>03</sup></button></div><div className="drag-hint">DRAG / SWIPE TO EXPLORE <span>↔</span></div></div>
+      <div className="work-controls"><div className="tabs"><a className="tab-link" href="#ai-videos">▶ AI VIDEOS <sup>25</sup></a><button className={category==="design"?"selected":""} onClick={()=>setCategory("design")}>✳ REELS <sup>02</sup></button></div><div className="drag-hint">DRAG / SWIPE TO EXPLORE <span>↔</span></div></div>
       <div className="carousel-shell" onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerLeave={onPointerUp}>
         <div className="carousel-stage" ref={carouselRef}>
           {items.map((p,i)=>{
@@ -130,7 +129,7 @@ export default function Home(){
             const scale=.68+(Math.cos(radians)+1)*.16;
             const isFront=i===activeIndex;
             return <motion.button key={category+p.n} className={`carousel-card ${isFront?"front":""}`} animate={{x, y:Math.abs(x)*.035, z, scale, opacity:.36+(Math.cos(radians)+1)*.32, rotateY:-Math.sin(radians)*17}} transition={{type:"spring",stiffness:90,damping:18}} onClick={()=>isFront?setActive(p):setRotation(rotation+(i-activeIndex)*(360/items.length))}>
-              <Visual tone={p.tone} index={i}/><div className="carousel-card-foot"><span>{p.n} / 0{items.length}</span><span>{p.kind}</span></div>
+              {p.youtubeId ? <div className="reel-cover"><img src={`https://i.ytimg.com/vi/${p.youtubeId}/maxresdefault.jpg`} alt={`${p.name} reel thumbnail`} onError={e=>{if(!e.currentTarget.src.includes("hqdefault.jpg"))e.currentTarget.src=`https://i.ytimg.com/vi/${p.youtubeId}/hqdefault.jpg`}}/><span><Play fill="currentColor"/></span></div> : <Visual tone={p.tone} index={i}/>}<div className="carousel-card-foot"><span>{p.n} / 0{items.length}</span><span>{p.kind}</span></div>
             </motion.button>
           })}
         </div>
@@ -172,6 +171,6 @@ export default function Home(){
     <section className="contact" id="contact"><div className="contact-top"><span className="eyebrow">05 / YOUR IDEA, NEXT?</span><span>AVAILABLE FOR SELECT PROJECTS</span></div><h2>LET’S MAKE<br/><em>SOMETHING.</em></h2><a className="contact-cta" href="mailto:YOUR_EMAIL_HERE">HAVE A PROJECT? LET’S TALK <ArrowUpRight/></a><div className="contact-bottom"><span>CREATIVE ROLES · FREELANCE · COLLABORATIONS</span><div><a href="https://www.linkedin.com/in/harsh-yadav-6561a6223/" target="_blank" rel="noreferrer"><Linkedin/> LINKEDIN</a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer"><Instagram/> INSTAGRAM</a><a href="mailto:YOUR_EMAIL_HERE"><Mail/> EMAIL</a></div></div></section>
     <footer><a href="#home" className="signature"><span className="sig-icon">HY.</span><span>HARSH YADAV<small>INDEPENDENT CREATIVE</small></span></a><span>© 2026 · MADE WITH INTENT IN INDIA</span><a href="#home">BACK TO TOP ↑</a></footer>
 
-    <AnimatePresence>{active&&<motion.div className="modal-backdrop" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setActive(null)}><motion.div className="project-modal" initial={{y:30,scale:.97}} animate={{y:0,scale:1}} exit={{y:20,scale:.98}} onClick={e=>e.stopPropagation()}><button className="modal-x" onClick={()=>setActive(null)}><X/></button><span className="eyebrow">{active.n ? `PROJECT / ${active.n} — SELECTED WORK` : active.category}</span><h3>{active.name||active.title}</h3><p className="modal-client">{active.client||active.category}</p>{active.youtubeId ? <iframe className="modal-video" src={`https://www.youtube-nocookie.com/embed/${active.youtubeId}?autoplay=1`} title={active.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/> : <Visual tone={active.tone} index={Number(active.n)-1}/>}<p>{active.desc||active.file}</p>{active.n&&<small>Replace this concept preview with the final video, stills, campaign objective and your exact role.</small>}</motion.div></motion.div>}</AnimatePresence>
+    <AnimatePresence>{active&&<motion.div className="modal-backdrop" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setActive(null)}><motion.div className="project-modal" initial={{y:30,scale:.97}} animate={{y:0,scale:1}} exit={{y:20,scale:.98}} onClick={e=>e.stopPropagation()}><button className="modal-x" onClick={()=>setActive(null)}><X/></button><span className="eyebrow">{active.n ? `PROJECT / ${active.n} — SELECTED WORK` : active.category}</span><h3>{active.name||active.title}</h3><p className="modal-client">{active.client||active.category}</p>{active.youtubeId ? <iframe className={`modal-video ${active.kind?.includes("REEL")?"modal-reel-video":""}`} src={`https://www.youtube-nocookie.com/embed/${active.youtubeId}?autoplay=1`} title={active.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/> : <Visual tone={active.tone} index={Number(active.n)-1}/>}<p>{active.desc||active.file}</p>{active.n&&<small>Replace this concept preview with the final video, stills, campaign objective and your exact role.</small>}</motion.div></motion.div>}</AnimatePresence>
   </main>
 }
