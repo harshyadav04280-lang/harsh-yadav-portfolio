@@ -11,13 +11,13 @@ const videoProjects = [
   {n:"05",name:"Culture & Sport",client:"MUMBAI INDIANS / ENTERTAINMENT",kind:"PROMO · HIGHLIGHTS · EDIT",tone:"red",desc:"Fast-moving entertainment and sports-led visuals shaped for energy, emotion and impact."}
 ];
 const portfolioVideos: { file: string; title: string; category: string; priority: string; youtubeId?: string }[] = [
-  { file: "AXIS_Max_Life_Policy_2.mp4", title: "Max Life Policy", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "AXIS_Max_Life_Policy_2.mp4", title: "Max Life Policy", youtubeId: "1NUnUSmMH_Q", category: "AI Commercial Ads", priority: "Featured" },
   { file: "BFL_Delhi_Monsoon_Horizontal (3).mp4", title: "Delhi Monsoon", youtubeId: "Pm7zyz15HVU", category: "AI Commercial Ads", priority: "Featured" },
   { file: "BFL_Mumbai_4.mp4", title: "BFL Mumbai", youtubeId: "nQgvHOZ5Av8", category: "AI Commercial Ads", priority: "Featured" },
   { file: "BFL_kerala_D38 (1).mp4", title: "BFL Kerala", youtubeId: "VFVuX31-GQ0", category: "AI Commercial Ads", priority: "Secondary" },
-  { file: "BGI_Cyber_9x16_v1.mp4", title: "BGI Cyber", category: "AI Reels & Social", priority: "Secondary" },
+  { file: "BGI_Cyber_9x16_v1.mp4", title: "BGI Cyber", youtubeId: "Agctuamx_hs", category: "AI Reels & Social", priority: "Secondary" },
   { file: "Color_Reveal_16x9_V2.mp4", title: "Color Reveal", youtubeId: "LIZVTeq-UGk", category: "AI Motion Graphics", priority: "Secondary" },
-  { file: "Duty_Free_Sample.mp4", title: "Duty Free", category: "AI Commercial Ads", priority: "Secondary" },
+  { file: "Duty_Free_Sample.mp4", title: "Duty Free", youtubeId: "rnxirJRp5WQ", category: "AI Commercial Ads", priority: "Secondary" },
   { file: "Goldiee_Sprinkoo_TVC_1 (3) (2).mp4", title: "Goldiee Sprinkoo TVC", category: "AI Commercial Ads", priority: "Featured" },
   { file: "Havells_Sample.mp4", title: "Havells", category: "AI Commercial Ads", priority: "Secondary" },
   { file: "JioHotstar_BiggBoss_Sample.mp4", title: "JioHotstar Bigg Boss", category: "AI Commercial Ads", priority: "Featured" },
