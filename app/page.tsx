@@ -19,7 +19,7 @@ const portfolioVideos: { file: string; title: string; category: string; priority
   { file: "Duty_Free_Sample.mp4", title: "Duty Free", youtubeId: "rnxirJRp5WQ", extraCategories: ["AI Reels & Social"], category: "AI Commercial Ads", priority: "Secondary" },
   { file: "Goldiee_Sprinkoo_TVC_1 (3) (2).mp4", youtubeId: "YY1zM_rH12o", title: "Goldiee Sprinkoo TVC", category: "AI Commercial Ads", priority: "Featured" },
   { file: "Havells_Sample.mp4", youtubeId: "R2omHqI_Qmw", title: "Havells", extraCategories: ["AI Reels & Social"], category: "AI Commercial Ads", priority: "Secondary" },
-  { file: "JioHotstar_BiggBoss_Sample.mp4", youtubeId: "ljDnpdFhNtY", title: "JioHotstar Bigg Boss", extraCategories: ["AI Reels & Social", "AI Video Editing & VFX"], tags: ["AVATAR", "VFX", "LIP-SYNC"], desc: "AI commercial with avatar generation, visual effects and lip-sync work.", category: "AI Commercial Ads", priority: "Featured" },
+  { file: "JioHotstar_BiggBoss_Sample.mp4", youtubeId: "ljDnpdFhNtY", title: "JioHotstar Bigg Boss", extraCategories: ["AI Reels & Social", "AI Video Editing & VFX", "AI Avatar"], tags: ["AVATAR", "VFX", "LIP-SYNC"], desc: "AI commercial with avatar generation, visual effects and lip-sync work.", category: "AI Commercial Ads", priority: "Featured" },
   { file: "Kenstar_Sample.mp4", youtubeId: "VmFhPwZzpo4", title: "Kenstar", category: "AI Commercial Ads", priority: "Secondary" },
   { file: "Kolkata_Monsoon_BFL_D8.mp4", youtubeId: "TaiOWadaMkw", title: "Kolkata Monsoon", category: "AI Commercial Ads", priority: "Featured" },
   { file: "MI_Hardik_Pandiya_Creative_Sample.mp4", youtubeId: "HlZNrb0hmcQ", title: "MI · Hardik Pandya", extraCategories: ["AI Reels & Social"], category: "AI Commercial Ads", priority: "Featured" },
@@ -29,14 +29,14 @@ const portfolioVideos: { file: string; title: string; category: string; priority
   { file: "Revised_MF29_UTILargeCap_CapitalGoods_02_08.mp4", youtubeId: "K0aDkHfxSiI", title: "Large Cap · Capital Goods", extraCategories: ["AI Reels & Social"], category: "AI Motion Graphics", priority: "Secondary" },
   { file: "SBI_Retire_Smart_Plus_30-01-26.mp4", youtubeId: "vysZZia_eIs", title: "SBI Retire Smart Plus", extraCategories: ["AI Reels & Social"], category: "AI Commercial Ads", priority: "Featured" },
   { file: "SLIC_LifeStageShield_English_6.mp4", youtubeId: "jVlfXKKgCXI", title: "LifeStage Shield", extraCategories: ["AI Video Editing & VFX"], category: "AI Commercial Ads", priority: "Featured" },
-  { file: "Savvyy_render.mp4", youtubeId: "hej9uJ_cWGo", title: "Savvyy", desc: "Fully AI-generated video, then edited; no VFX work.", category: "AI Video Editing", priority: "Secondary" },
+  { file: "Savvyy_render.mp4", youtubeId: "hej9uJ_cWGo", title: "Savvyy", desc: "AI-generated commercial film with a polished edit.", category: "AI Commercial Ads", priority: "Secondary" },
   { file: "Sprinkoo_TVC_2_24fps-001 (1).mov", youtubeId: "yZyVMAfui9o", title: "Sprinkoo TVC · Film", category: "AI Commercial Ads", priority: "Featured" },
   { file: "VIVO_Appearance_16x9_4k.mp4", youtubeId: "m44BddqfCQ0", title: "Vivo Appearance", category: "AI Commercial Ads", priority: "Featured" },
   { file: "Vivo_S2_10Secs_1.mp4", youtubeId: "rHQ-VSNCz7o", title: "Vivo S2 · 10 sec", category: "AI Commercial Ads", priority: "Featured" },
   { file: "krishna sample1.4.mp4", youtubeId: "-2Uldw372uY", title: "Krishna", extraCategories: ["AI Reels & Social"], category: "AI Video Editing & VFX", priority: "Secondary" },
   { file: "retail.mp4", youtubeId: "LQKRp4Qm4hA", title: "Retail", extraCategories: ["AI Motion Graphics"], category: "AI Commercial Ads", priority: "Secondary" },
 ];
-const aiCategories = ["All AI Videos", "AI Commercial Ads", "AI Motion Graphics", "AI Reels & Social", "AI Video Editing", "AI Video Editing & VFX"] as const;
+const aiCategories = ["All AI Videos", "AI Commercial Ads", "AI Motion Graphics", "AI Reels & Social", "AI Avatar", "AI Video Editing & VFX"] as const;
 const designProjects = portfolioVideos
   .filter(v=>v.category==="AI Reels & Social"||v.extraCategories?.includes("AI Reels & Social"))
   .map((v,i)=>({n:String(i+1).padStart(2,"0"),name:v.title,client:v.category.toUpperCase(),kind:"AI REEL · SOCIAL",tone:"purple",youtubeId:v.youtubeId,category:"Reels & Social",desc:v.desc||"Short-form video selected for social and reel formats."}));
@@ -76,6 +76,7 @@ export default function Home(){
   const items=category==="video"?videoProjects:designProjects;
   const featuredVideos=portfolioVideos.filter(v=>v.priority==="Featured");
   const featuredVideo=featuredVideos[featuredIndex%featuredVideos.length];
+  const filteredVideos=portfolioVideos.filter(v=>aiFilter==="All AI Videos"||v.category===aiFilter||v.extraCategories?.includes(aiFilter));
 
   useEffect(()=>{const tick=()=>setTime(new Intl.DateTimeFormat("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date()));tick();const t=setInterval(tick,30000);return()=>clearInterval(t)},[]);
   useEffect(()=>{setRotation(0)},[category]);
@@ -141,7 +142,13 @@ export default function Home(){
       <div className="section-intro"><div><span className="eyebrow">01A / THE AI VIDEO LIBRARY</span><h2>AI <span>FILMS.</span></h2></div><p>24 AI-created projects.<br/>Browse by format and craft.</p></div>
       {featuredVideo&&<div className="featured-single"><button className="featured-single-thumb" onClick={()=>featuredVideo.youtubeId&&setActive(featuredVideo)} aria-label={`Play featured video ${featuredVideo.title}`}><img src={featuredVideo.youtubeId?`https://i.ytimg.com/vi/${featuredVideo.youtubeId}/maxresdefault.jpg`:""} alt={`${featuredVideo.title} thumbnail`} onError={e=>{if(featuredVideo.youtubeId&&!e.currentTarget.src.includes("hqdefault.jpg"))e.currentTarget.src=`https://i.ytimg.com/vi/${featuredVideo.youtubeId}/hqdefault.jpg`}}/>{featuredVideo.youtubeId?<span className="thumb-play"><Play fill="currentColor"/></span>:<span className="featured-video-pending">VIDEO PENDING</span>}</button><div className="featured-single-copy"><span className="eyebrow">FEATURED VIDEO / {featuredVideo.category.toUpperCase()}</span><h3>{featuredVideo.title}</h3><p>A featured AI campaign film from the selected portfolio work.</p>{featuredVideo.youtubeId&&<button className="text-link" onClick={()=>setActive(featuredVideo)}>PLAY FEATURED VIDEO <MoveUpRight size={16}/></button>}<div className="featured-single-nav"><button aria-label="Previous featured video" onClick={()=>setFeaturedIndex(i=>(i-1+featuredVideos.length)%featuredVideos.length)}><ArrowLeft/></button><span>{String(featuredIndex+1).padStart(2,"0")} <i>/</i> {String(featuredVideos.length).padStart(2,"0")}</span><button aria-label="Next featured video" onClick={()=>setFeaturedIndex(i=>(i+1)%featuredVideos.length)}><ArrowRight/></button></div></div></div>}
       <div className="ai-filter-row">{aiCategories.map(c=><button key={c} className={aiFilter===c?"active":""} onClick={()=>setAiFilter(c)}>{c}</button>)}</div>
-      <div className="ai-video-grid">{portfolioVideos.filter(v=>aiFilter==="All AI Videos"||v.category===aiFilter||v.extraCategories?.includes(aiFilter)).map(v=><article className="ai-video-card" key={v.file}>{v.youtubeId ? <button className="video-thumb" onClick={()=>setActive(v)} aria-label={`Play ${v.title}`}><img src={`https://i.ytimg.com/vi/${v.youtubeId}/maxresdefault.jpg`} alt={`${v.title} video thumbnail`} onError={e=>{if(!e.currentTarget.src.includes("hqdefault.jpg"))e.currentTarget.src=`https://i.ytimg.com/vi/${v.youtubeId}/hqdefault.jpg`}}/><span className="thumb-play"><Play fill="currentColor"/></span></button> : <div className="video-pending"><span>VIDEO PREVIEW</span><b>{v.title}</b><small>Online video link pending</small></div>}<div className="ai-video-meta"><span>{[v.category,...(v.extraCategories||[]),...(v.tags||[])].join(" · ")}</span><span className={v.priority==="Featured"?"priority-featured":""}>{v.priority}</span></div><h3>{v.title}</h3></article>)}</div>
+      <div className="ai-video-slider" aria-label="AI video portfolio">
+        <div className="ai-video-slider-track">
+          {[0,1].map(copy=><div className="ai-video-slider-group" key={copy} aria-hidden={copy===1}>
+            {filteredVideos.map(v=><article className="ai-video-card" key={`${copy}-${v.file}`}>{v.youtubeId ? <button className="video-thumb" onClick={()=>setActive(v)} aria-label={`Play ${v.title}`} tabIndex={copy===1?-1:undefined}><img src={`https://i.ytimg.com/vi/${v.youtubeId}/maxresdefault.jpg`} alt={`${v.title} video thumbnail`} onError={e=>{if(!e.currentTarget.src.includes("hqdefault.jpg"))e.currentTarget.src=`https://i.ytimg.com/vi/${v.youtubeId}/hqdefault.jpg`}}/><span className="thumb-play"><Play fill="currentColor"/></span></button> : <div className="video-pending"><span>VIDEO PREVIEW</span><b>{v.title}</b><small>Online video link pending</small></div>}<div className="ai-video-meta"><span>{[v.category,...(v.extraCategories||[]),...(v.tags||[])].join(" · ")}</span><span className={v.priority==="Featured"?"priority-featured":""}>{v.priority}</span></div><h3>{v.title}</h3></article>)}
+          </div>)}
+        </div>
+      </div>
       <p className="disclaimer">All 24 portfolio videos are linked to their YouTube previews.</p>
     </section>
 
