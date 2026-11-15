@@ -117,8 +117,8 @@ export default function Home(){
 
     <section className="work section" id="work">
       <div className="section-intro"><div><span className="eyebrow">01 / SELECTED WORK</span><h2>THE SHOW<span>CASE.</span></h2></div><p>Different mediums. One obsession:<br/>making the frame matter.</p></div>
-      <div className="work-controls"><div className="tabs"><a className="tab-link" href="#ai-videos">▶ AI VIDEOS <sup>24</sup></a><button className={category==="design"?"selected":""} onClick={()=>setCategory("design")}>✳ REELS <sup>02</sup></button></div><div className="drag-hint">DRAG / SWIPE TO EXPLORE <span>↔</span></div></div>
-      <div className="carousel-shell" onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerLeave={onPointerUp}>
+      <div className="work-controls"><div className="tabs"><a className="tab-link" href="#ai-videos">▶ AI VIDEOS <sup>24</sup></a><button className={category==="design"?"selected":""} onClick={()=>setCategory("design")}>✳ REELS <sup>02</sup></button></div><div className="drag-hint">{category==="design"?"TAP A REEL TO PLAY":"DRAG / SWIPE TO EXPLORE"} <span>{category==="design"?"↗":"↔"}</span></div></div>
+      <div className={`carousel-shell ${category==="design"?"reel-mode":""}`} onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerLeave={onPointerUp}>
         <div className="carousel-stage" ref={carouselRef}>
           {items.map((p,i)=>{
             const angle=(i*360/items.length)+rotation;
@@ -127,15 +127,15 @@ export default function Home(){
             const z=(Math.cos(radians)+1)*-155;
             const scale=.68+(Math.cos(radians)+1)*.16;
             const isFront=i===activeIndex;
-            return <motion.button key={category+p.n} className={`carousel-card ${isFront?"front":""}`} animate={{x, y:Math.abs(x)*.035, z, scale, opacity:.36+(Math.cos(radians)+1)*.32, rotateY:-Math.sin(radians)*17}} transition={{type:"spring",stiffness:90,damping:18}} onClick={()=>isFront?setActive(p):setRotation(rotation+(i-activeIndex)*(360/items.length))}>
-              {p.youtubeId ? <div className="reel-cover"><img src={`https://i.ytimg.com/vi/${p.youtubeId}/maxresdefault.jpg`} alt={`${p.name} reel thumbnail`} onError={e=>{if(!e.currentTarget.src.includes("hqdefault.jpg"))e.currentTarget.src=`https://i.ytimg.com/vi/${p.youtubeId}/hqdefault.jpg`}}/><span><Play fill="currentColor"/></span></div> : <Visual tone={p.tone} index={i}/>}<div className="carousel-card-foot"><span>{p.n} / 0{items.length}</span><span>{p.kind}</span></div>
+            return <motion.button key={category+p.n} className={`carousel-card ${isFront?"front":""}`} animate={{x, y:Math.abs(x)*.035, z, scale, opacity:.36+(Math.cos(radians)+1)*.32, rotateY:-Math.sin(radians)*17}} transition={{type:"spring",stiffness:90,damping:18}} onClick={()=>category==="design"?setActive(p):isFront?setActive(p):setRotation(rotation+(i-activeIndex)*(360/items.length))}>
+              {p.youtubeId ? <div className="reel-cover reel-poster"><img src={`https://i.ytimg.com/vi/${p.youtubeId}/maxresdefault.jpg`} alt={`${p.name} reel thumbnail`} onError={e=>{if(!e.currentTarget.src.includes("hqdefault.jpg"))e.currentTarget.src=`https://i.ytimg.com/vi/${p.youtubeId}/hqdefault.jpg`}}/><span className="reel-play"><Play fill="currentColor"/></span><div className="reel-poster-top"><span>{p.n} / 0{items.length}</span><span>AI REEL</span></div><div className="reel-poster-bottom"><b>{p.name}</b><small>{p.client}</small></div></div> : <Visual tone={p.tone} index={i}/>}<div className="carousel-card-foot"><span>{p.n} / 0{items.length}</span><span>{p.kind}</span></div>
             </motion.button>
           })}
         </div>
-        <div className="carousel-nav"><button onClick={()=>move(-1)} aria-label="Previous"><ArrowLeft/></button><span>{String(activeIndex+1).padStart(2,"0")} <i>/</i> {String(items.length).padStart(2,"0")}</span><button onClick={()=>move(1)} aria-label="Next"><ArrowRight/></button></div>
+        {category!=="design"&&<div className="carousel-nav"><button onClick={()=>move(-1)} aria-label="Previous"><ArrowLeft/></button><span>{String(activeIndex+1).padStart(2,"0")} <i>/</i> {String(items.length).padStart(2,"0")}</span><button onClick={()=>move(1)} aria-label="Next"><ArrowRight/></button></div>}
       </div>
-      <div className="featured-caption"><div><span className="eyebrow">CURRENTLY IN FOCUS</span><h3>{items[activeIndex]?.name}</h3><p>{items[activeIndex]?.client}</p></div><button className="text-link" onClick={()=>setActive(items[activeIndex])}>EXPLORE PROJECT <MoveUpRight size={16}/></button></div>
-      <p className="disclaimer">PROJECT PANELS ARE VISUAL PLACEHOLDERS. REAL CAMPAIGN STILLS, VIDEO LINKS AND CREDITS WILL REPLACE THESE BEFORE PUBLIC LAUNCH.</p>
+      {category!=="design"&&<><div className="featured-caption"><div><span className="eyebrow">CURRENTLY IN FOCUS</span><h3>{items[activeIndex]?.name}</h3><p>{items[activeIndex]?.client}</p></div><button className="text-link" onClick={()=>setActive(items[activeIndex])}>EXPLORE PROJECT <MoveUpRight size={16}/></button></div>
+      <p className="disclaimer">PROJECT PANELS ARE VISUAL PLACEHOLDERS. REAL CAMPAIGN STILLS, VIDEO LINKS AND CREDITS WILL REPLACE THESE BEFORE PUBLIC LAUNCH.</p></>}
     </section>
 
     <section className="ai-gallery section" id="ai-videos">
