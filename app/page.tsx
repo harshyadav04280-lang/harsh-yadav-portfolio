@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, ArrowUpRight, ArrowLeft, ArrowRight, X, Play, Plus, MoveUpRight, Menu, Instagram, Linkedin, Mail, Volume2, Sparkles } from "lucide-react";
 
-const videoProjects = [
+const videoProjects: { n: string; name: string; client: string; kind: string; tone: string; desc: string; youtubeId?: string }[] = [
   {n:"01",name:"Campaign Films",client:"HDFC BANK / BRAND CAMPAIGNS",kind:"AI FILM · EDIT · STORY",tone:"orange",desc:"Campaign-led visual storytelling, built around a strong hook, clear pacing and a memorable final frame."},
   {n:"02",name:"AI Visual Worlds",client:"GENERATIVE VIDEO / VFX",kind:"AI PRODUCTION · COMPOSITING",tone:"purple",desc:"Exploring the edge of AI video production, image-to-video workflows, art direction and post-production."},
   {n:"03",name:"Motion Language",client:"MOTION DESIGN / AFTER EFFECTS",kind:"2D MOTION · TYPE · DESIGN",tone:"blue",desc:"Kinetic typography, transitions and graphic systems that give a story its own visual rhythm."},
